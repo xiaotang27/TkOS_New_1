@@ -1,6 +1,13 @@
+'''TkOS New 1.0源代码
+作者：bilibili -小唐玩电脑-
+相关视频只在B站发布。
+本程序使用MIT许可证。'''
+
+
 import tkinter
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import filedialog
 import os
 import sys
 import platform
@@ -66,11 +73,45 @@ def lltang():
     your_input.grid(row = 0, column = 1)
     ttk.Button(lltang, text = '提交', command = ok).gri(row = 0, column = 2)
 
+def update_log():
+    log = tkinter.Toplevel()
+    log.title("版本更新日志")
+    tkinter.Label(log, text = '当前版本：开发版本3\n内部版本0.0.114514.2').pack()
+    update = tkinter.Text(log)
+    update.pack()
+    update_text = '版本更新日志（按版本编号从大到小排列）\n\
+0.0.114514.2：\n\
+更新了更新日志的查看。\n\
+新增文本编辑。\n\
+0.0.114514.1：\n\
+新增终端。\n\
+新增文字助手小小唐（目前有bug ）。\n\
+更新关于页面。\n\
+0.0.114514：\n\
+无更新。'
+    update.insert(tkinter.END, update_text)
+
+def text_edit():
+    windows = tkinter.Text()
+    windows.title('TkOS文本编辑器')
+    text = tkinter.Text(windows)
+    text.pack()
+    text_menu = tkinter.Menu(windows)
+    file_menu = tkinter.Menu(text_menu, tearoff = 0)
+    help_menu = tkinter.Menu(text_menu, tearoff = 0)
+    text_menu.add_cascade(label = '文件(F)', menu = file_menu)
+    file_menu.add_command(label = '新建')
+    file_menu.add_command(label = '保存'
+    file_menu.add_command(label = '另存为')
+    help_menu.add_command(label = '关于')
+    windows.config(menu = text_menu)
+
 def about():
     about_windows = tkinter.Toplevel()
     about_windows.title("关于TkOS")
     tkinter.Label(about_windows, text = 'TkOS New Version 1.0\n版本0.0.114514.1（开发版本2）\n制作者bilibili -小唐玩电脑-\n本程序使用MIT许可证。').pack()
     ttk.Button(about_windows, text = '官方网站', command = webbrowser.open("https://zqtang10/github.io/TkOS_New_1.0")).pack()
+
 root = tkinter.Tk()
 root.title('主界面')
 root.protocol("WM_DELETE_WINDOW", cantclose)
@@ -82,6 +123,7 @@ system.add_command(label = "关机（注意这个真的会关机）", command = 
 system.add_separator()
 system.add_command(label = '终端', command = cmd)
 system.add_separator()
+system.add_command(label = '更新日志', command = update_log)
 system.add_command(label = '关于',command = about)
 root.config(menu = menu)
 tkinter.Label(root, text = 'TkOS New 1.0 开发版\n制作者：bilibili up主-小唐玩电脑-\n三连再看，养成习惯').grid(row = 0,column=0)
